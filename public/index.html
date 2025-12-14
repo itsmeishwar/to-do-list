@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trae To-Do</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header class="app-header" role="banner">
+        <h1>To-Do List</h1>
+        <div class="status" id="status" aria-live="polite"></div>
+    </header>
+    <main class="container" role="main">
+        <section class="add-task" aria-labelledby="add-task-title">
+            <h2 id="add-task-title" class="sr-only">Add a new task</h2>
+            <form id="task-form" autocomplete="off">
+                <div class="field-group"><label for="title">Title<span aria-hidden="true">*</span></label><input
+                        id="title" name="title" type="text" placeholder="What needs to be done?" required /></div>
+                <div class="field-group"><label for="description">Description</label><textarea id="description"
+                        name="description" placeholder="Optional details"></textarea></div>
+                <div class="field-group"><label for="dueDate">Due Date</label><input id="dueDate" name="dueDate"
+                        type="date" /></div><button type="submit" class="btn primary">Add Task</button>
+            </form>
+        </section>
+        <section class="controls" aria-label="Task filters and actions">
+            <div class="filters" role="tablist" aria-label="Filters"><button class="tab active" role="tab"
+                    aria-selected="true" data-filter="all" id="filter-all">All</button><button class="tab" role="tab"
+                    aria-selected="false" data-filter="active" id="filter-active">Active</button><button class="tab"
+                    role="tab" aria-selected="false" data-filter="completed" id="filter-completed">Completed</button>
+            </div>
+            <div class="actions"><button id="refresh" class="btn">Refresh</button></div>
+        </section>
+        <section class="list" aria-labelledby="list-title">
+            <h2 id="list-title" class="sr-only">Task list</h2>
+            <ul id="task-list" class="task-list" aria-live="polite"></ul>
+            <div class="empty" id="empty" hidden>No tasks yet. Add one above!</div>
+        </section>
+    </main>
+    <footer class="app-footer" role="contentinfo">
+        <div id="stats" aria-live="polite">0 tasks</div>
+    </footer>
+    <script src="/app.js" defer></script>
+</body>
+
+</html>
