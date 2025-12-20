@@ -1,27 +1,27 @@
-const express = require("express");
+const { Router } = require("express");
 const { v4: uuidv4 } = require("uuid");
-const fs = require("fs");
-const path = require("path");
+const { existsSync, mkdirSync, writeFileSync, readFileSync } = require("fs");
+const { join, dirname } = require("path");
 
-const router = express.Router();
+const router = Router();
 
 // Allow tests to override data file via env
-const DATA_FILE = process.env.TASKS_FILE || path.join(__dirname, "..", "data", "tasks.json");
+const DATA_FILE = process.env.TASKS_FILE || join(__dirname, "..", "data", "tasks.json");
 
 function ensureDataFile() {
-  const dir = path.dirname(DATA_FILE);
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
+  const dir = dirname(DATA_FILE);
+  if (!existsSync(dir)) {
+    mkdirSync(dir, { recursive: true });
   }
-  if (!fs.existsSync(DATA_FILE)) {
-    fs.writeFileSync(DATA_FILE, "[]", "utf8");
+  if (!existsSync(DATA_FILE)) {
+    writeFileSync(DATA_FILE, "[]", "utf8");
   }
 }
 
 function readTasks() {
   try {
     ensureDataFile();
-    const raw = fs.readFileSync(DATA_FILE, "utf8");
+    const raw = readFileSync(DATA_FILE, "utf8");
     const tasks = JSON.parse(raw || "[]");
     return Array.isArray(tasks) ? tasks : [];
   } catch (e) {
@@ -31,7 +31,7 @@ function readTasks() {
 
 function writeTasks(tasks) {
   ensureDataFile();
-  fs.writeFileSync(DATA_FILE, JSON.stringify(tasks, null, 2), "utf8");
+  writeFileSync(DATA_FILE, JSON.stringify(tasks, null, 2), "utf8");
 }
 
 function sanitize(str) {

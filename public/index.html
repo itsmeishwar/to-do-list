@@ -16,7 +16,7 @@
     <main class="container" role="main">
         <section class="add-task" aria-labelledby="add-task-title">
             <h2 id="add-task-title" class="sr-only">Add a new task</h2>
-            <form id="task-form" autocomplete="off">
+            <form id="task-form" autocomplete="off" action="api/task" method="POST">
                 <div class="field-group"><label for="title">Title<span aria-hidden="true">*</span></label><input
                         id="title" name="title" type="text" placeholder="What needs to be done?" required /></div>
                 <div class="field-group"><label for="description">Description</label><textarea id="description"
@@ -42,7 +42,7 @@
     <footer class="app-footer" role="contentinfo">
         <div id="stats" aria-live="polite">0 tasks</div>
     </footer>
-    <script src="/app.js" defer></script>
+    <script src="app.js" defer></script>
 </body>
 
 </html>
